@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Results | Database Fundamentals</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .container { max-width: 900px; }
+        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .back-link { 
+            text-decoration: none; 
+            color: var(--primary); 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 5px;
+            transition: transform 0.2s ease;
+        }
+        .back-link:hover { transform: translateX(-5px); }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); display: block; }
+        .stat-label { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .table-container {
+            overflow-x: auto;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: rgba(99, 102, 241, 0.1);
+            text-align: left;
+            padding: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            vertical-align: top;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .rating-pill {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: var(--primary);
+            color: white;
+        }
+
+        .refresh-btn {
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .refresh-btn:hover { background: var(--primary); color: white; }
+
+        .loader-container { text-align: center; padding: 3rem; }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(99, 102, 241, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <main class="container">
+        <section class="feedback-card">
+            <header class="results-header">
+                <a href="index.html" class="back-link">← Back to Form</a>
+                <button id="refreshBtn" class="refresh-btn">Refresh Data</button>
+            </header>
+
+            <div class="header">
+                <h1>📊 Course Results</h1>
+                <p class="subtitle">Real-time feedback from our database students</p>
+            </div>
+
+            <div id="loading" class="loader-container">
+                <div class="spinner"></div>
+                <p>Fetching latest results...</p>
+            </div>
+
+            <div id="resultsContent" style="display: none;">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span id="totalFeedback" class="stat-value">0</span>
+                        <span class="stat-label">Total Submissions</span>
+                    </div>
+                    <div class="stat-card">
+                        <span id="avgRating" class="stat-value">0.0</span>
+                        <span class="stat-label">Avg. Satisfaction</span>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Rating</th>
+                                <th>Favorite Topic</th>
+                                <th>Comments</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTableBody">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/results.js"></script>
+</body>
+</html>

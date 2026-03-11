@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Feedback Form | Database Fundamentals</title>
+    <meta name="description" content="Share your feedback on the Database Fundamentals course to help us improve our curriculum.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <main class="container">
+        <section class="feedback-card">
+            <header class="header">
+                <h1 id="main-title">🗄️ Database Fundamentals Feedback</h1>
+                <p class="subtitle">Help us improve this course by sharing your thoughts!</p>
+            </header>
+
+            <form id="feedbackForm" novalidate>
+                <!-- Student Name -->
+                <div class="form-group">
+                    <label for="studentName">Student Name <span class="optional">(Optional)</span></label>
+                    <input type="text" id="studentName" name="studentName" placeholder="Enter your name">
+                </div>
+
+                <!-- Email Address -->
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                    <span class="error-text" id="emailError"></span>
+                </div>
+
+                <!-- Course Satisfaction -->
+                <div class="form-group">
+                    <label for="satisfaction">How satisfied are you with this course? <span class="required">*</span></label>
+                    <select id="satisfaction" name="satisfaction" required>
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="1">⭐ 1 - Very Dissatisfied</option>
+                        <option value="2">⭐⭐ 2 - Dissatisfied</option>
+                        <option value="3">⭐⭐⭐ 3 - Neutral</option>
+                        <option value="4">⭐⭐⭐⭐ 4 - Satisfied</option>
+                        <option value="5">⭐⭐⭐⭐⭐ 5 - Very Satisfied</option>
+                    </select>
+                    <span class="error-text" id="satisfactionError"></span>
+                </div>
+
+                <!-- Favorite Topic -->
+                <div class="form-group">
+                    <label>Which topic did you enjoy the most? <span class="required">*</span></label>
+                    <div class="radio-group" id="topicGroup">
+                        <label class="radio-label">
+                            <input type="radio" name="favoriteTopic" value="SQL Basics">
+                            <span>SQL Basics</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="favoriteTopic" value="Normalization">
+                            <span>Normalization</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="favoriteTopic" value="ER Diagrams">
+                            <span>ER Diagrams</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="favoriteTopic" value="Indexes & Query Optimization">
+                            <span>Indexes & Query Optimization</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Recommend to a Friend -->
+                <div class="form-group">
+                    <label>Would you recommend this course to a friend? <span class="required">*</span></label>
+                    <div class="toggle-group">
+                        <label class="radio-label">
+                            <input type="radio" name="recommend" value="Yes" checked>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="recommend" value="No">
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Additional Comments -->
+                <div class="form-group">
+                    <label for="comments">Additional Comments</label>
+                    <textarea id="comments" name="comments" rows="4" placeholder="Share any suggestions or comments here..."></textarea>
+                </div>
+
+                <!-- Feedback Message -->
+                <div id="statusMessage" class="status-message"></div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="submit-btn">
+                    <span class="btn-text">Submit Feedback ✅</span>
+                    <span class="loader" hidden></span>
+                </button>
+            </form>
+
+            <footer class="form-footer">
+                <p>"Your feedback helps us design better database courses!"</p>
+                <div style="margin-top: 1rem;">
+                    <a href="results.html" style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">📊 View Live Results</a>
+                </div>
+            </footer>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
