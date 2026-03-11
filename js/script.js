@@ -6,7 +6,7 @@
 // Initialize Supabase Client
 const SUPABASE_URL = 'https://nishspgrgwwmwzgiaolg.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pc2hzcGdyZ3d3bXd6Z2lhb2xnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxOTc3MDUsImV4cCI6MjA4ODc3MzcwNX0.N1s8kCbtB0q3sfvIACiwDEbCbZdQnVMPc6MTiv1t8ns';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.addEventListener('DOMContentLoaded', () => {
     const feedbackForm = document.getElementById('feedbackForm');
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnText.textContent = 'Submitting to Database...';
         
         try {
-            const { error } = await supabase
+            const { error } = await supabaseClient
                 .from('course_feedback')
                 .insert([data]);
 
